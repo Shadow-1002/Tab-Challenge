@@ -71,6 +71,46 @@
       }
     }
   }
+    if (diff >= 2 * 60 * 2000 && !notificationShown) {
+      notificationShown = true;
+
+      if (Notification.permission === "granted") {
+        new Notification("⚠️ Security Alert", {
+          body: "Shadow_1002 has breached your computer!"
+        });
+      }
+    }
+  }
+    if (diff >= 2 * 60 * 3000 && !notificationShown) {
+      notificationShown = true;
+
+      if (Notification.permission === "granted") {
+        new Notification("⚠️ Security Alert", {
+          body: "Shadow_1002 has breached your computer!"
+        });
+      }
+    }
+  }
+    if (diff >= 2 * 60 * 4000 && !notificationShown) {
+      notificationShown = true;
+
+      if (Notification.permission === "granted") {
+        new Notification("⚠️ Security Alert", {
+          body: "Shadow_1002 has breached your computer!"
+        });
+      }
+    }
+  }
+    if (diff >= 2 * 60 * 5000 && !notificationShown) {
+      notificationShown = true;
+
+      if (Notification.permission === "granted") {
+        new Notification("⚠️ Security Alert", {
+          body: "Shadow_1002 has breached your computer!"
+        });
+      }
+    }
+  }
 
   updateTimer();
   setInterval(updateTimer, 1000);
