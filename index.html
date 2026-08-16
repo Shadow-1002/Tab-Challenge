@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>How many days can you keep this tab open?</title>
-
   <style>
     body {
       background: black;
@@ -25,152 +24,28 @@
     }
   </style>
 </head>
-
 <body>
 
   <div>How many days can you keep this tab open?</div>
-
   <div id="timer">0d 0h 0m 0s</div>
 
 <script>
+  let startTime = Date.now();
 
-  // When the challenge starts
-  const startTime = Date.now();
-
-  // Keep track of which notifications have already appeared
-  let notification1Shown = false;
-  let notification2Shown = false;
-  let notification3Shown = false;
-  let notification4Shown = false;
-
-
-  // Ask for notification permission
-  async function requestNotificationPermission() {
-
-    if (!("Notification" in window)) {
-      console.log("Notifications are not supported.");
-      return;
-    }
-
-    if (Notification.permission === "default") {
-      await Notification.requestPermission();
-    }
-  }
-
-  requestNotificationPermission();
-
-
-  // Send a desktop notification
-  function sendNotification(title, message) {
-
-    if (
-      "Notification" in window &&
-      Notification.permission === "granted"
-    ) {
-
-      new Notification(title, {
-        body: message
-      });
-
-    }
-  }
-
-
-  // Update timer and check notifications
   function updateTimer() {
+    const now = Date.now();
+    const diff = now - startTime;
 
-    const diff = Date.now() - startTime;
+    const seconds = Math.floor(diff / 1000) % 60;
+    const minutes = Math.floor(diff / (1000 * 60)) % 60;
+    const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-
-    // Calculate time
-    const totalSeconds = Math.floor(diff / 1000);
-
-    const seconds = totalSeconds % 60;
-    const minutes = Math.floor(totalSeconds / 60) % 60;
-    const hours = Math.floor(totalSeconds / 3600) % 24;
-    const days = Math.floor(totalSeconds / 86400);
-
-
-    // Update timer
     document.getElementById("timer").textContent =
       `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-
-    /*
-      NOTIFICATION 1
-      2 minutes
-    */
-
-    if (diff >= 2 * 60 * 1000 && !notification1Shown) {
-
-      notification1Shown = true;
-
-      sendNotification(
-        "⚠️ Security Alert",
-        "Shadow_1002 has breached your system!"
-      );
-
-    }
-
-
-    /*
-      NOTIFICATION 2
-      2 minutes 1 seconds
-    */
-
-    if (diff >= 121 * 1000 && !notification2Shown) {
-
-      notification2Shown = true;
-
-      sendNotification(
-        "⚠️ Security Alert",
-        "Downloading Trojan virus..."
-      );
-
-    }
-
-
-    /*
-      NOTIFICATION 3
-      2 minutes 4 seconds
-    */
-
-    if (diff >= 124 * 1000 && !notification3Shown) {
-
-      notification3Shown = true;
-
-      sendNotification(
-        "⚠️ Security Alert",
-        "Download complete!"
-      );
-
-    }
-
-
-    /*
-      NOTIFICATION 4
-      2 minutes 5 seconds
-    */
-
-    if (diff >= 125 * 1000 && !notification4Shown) {
-
-      notification4Shown = true;
-
-      sendNotification(
-        "CRITICAL SECURITY ALERT: Your system has been infected with 4 viruses! Your personal photos and passwords are being leaked right now. Shut down your laptop within 2 minutes to prevent further damage to your system",
-      );
-
-    }
-
   }
 
-
-  // Start timer immediately
-  updateTimer();
-
-  // Update every second
   setInterval(updateTimer, 1000);
-
 </script>
 
 </body>
